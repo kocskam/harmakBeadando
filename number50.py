@@ -1,5 +1,3 @@
-import numbers
-
 #függvények
 def toSecundum(ms, min, hour):
     return ms + min*60 + hour*3600
@@ -71,6 +69,9 @@ while r != "end":
 
     if nagyTav > limit:
         lawBreakers.append(rendszam + " " + str(round(nagyTav, 2)) + "km/h")
-#                                                                                                                          üres tömböt lekezelni, kiírni szépen
 
-print(lawBreakers)
+if len(lawBreakers) == 0:
+    print("Senki nem lépte át a sebességhatárt!")
+else:
+    for i in lawBreakers:
+        print(i)
