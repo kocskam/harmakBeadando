@@ -81,5 +81,3 @@ while r != "end":
         lawBreakers.append(rendszam + " " + str(round(nagyTav, 2)) + "km/h")
 #                                                                                                                          üres tömböt lekezelni, kiírni szépen
 print(lawBreakers)
-
-#test
