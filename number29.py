@@ -1,6 +1,19 @@
-
 input = "2[b3[a]]"
-output = ""
+
+def inputIsCorrect(input, db1):
+    db2 = 0
+    for i in range(len(input)):
+        if input[i] == "[":
+            # !-val nem lehet megfordítani?
+            if input[i-1].isdigit():
+                flag = True
+                #javítani ezt
+            else:
+                return False
+            db2 += 1
+    if db1 != db2:
+        return False
+    return True
 
 def stillNeedWorking(final):
     # if final.find("["):
@@ -15,8 +28,10 @@ def convertToMakeSense(input):
     # ha több van
     db = 0
     for i in input:
-        if i == "[":
+        if i == "]":
             db += 1
+
+    inputIsCorrect(input, db)
 
     for j in range(len(input)):
         if input[j] == "[":
@@ -50,16 +65,9 @@ def convertToMakeSense(input):
     for z in range(ind+1, len(input)):
         newOutput += input[z]
 
-    # print(newOutput)
     if stillNeedWorking(newOutput):
-        # print("y")
-        # print("dsd", newOutput)
         convertToMakeSense(newOutput)
     else:
-        # print("Ne", newOutput)
         print(newOutput)
-        # return newOutput
-    # print(newOutput)
 
 convertToMakeSense(input)
-
