@@ -1,6 +1,7 @@
-input = "2[b3[a]]"
+input = "b3[a]"
 
-def inputIsCorrect(input, db1):
+def inputIsWrong(input, db1):
+    # print("dsd", db1)
     db2 = 0
     for i in range(len(input)):
         if input[i] == "[":
@@ -9,9 +10,12 @@ def inputIsCorrect(input, db1):
                 flag = True
                 #javítani ezt
             else:
-                return False
+                return True
             db2 += 1
-    if db1 != db2:
+    #kell vagy nem
+    db3 = sum(c == "[" for c in input)
+    numbers = sum(c.isdigit() for c in input)
+    if db1 == db2 and numbers == db1:
         return False
     return True
 
@@ -31,7 +35,9 @@ def convertToMakeSense(input):
         if i == "]":
             db += 1
 
-    inputIsCorrect(input, db)
+    if inputIsWrong(input, db):
+        print("Hibás bemenet!")
+        return
 
     for j in range(len(input)):
         if input[j] == "[":
