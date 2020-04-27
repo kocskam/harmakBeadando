@@ -33,7 +33,7 @@ def timeIsOkay(sec, min, hour):
 distance = disIsOkay()
 limit = limIsOkay()
 
-lawBreakers = []
+ruleBreakers = []
 r = ""
 
 while r != "end":
@@ -46,7 +46,7 @@ while r != "end":
         print("Hibás bemenet!")
         continue
 
-    if timeIsOkay(ms1, perc1, ora1) and timeIsOkay(ms2, perc2, ora2) :
+    if timeIsOkay(ms1, perc1, ora1) and timeIsOkay(ms2, perc2, ora2):
         sec1 = toSecundum(int(ms1), int(perc1), int(ora1))
         sec2 = toSecundum(int(ms2), int(perc2), int(ora2))
     else:
@@ -69,10 +69,10 @@ while r != "end":
         nagyTav = round(nagyTav, 2)
 
     if nagyTav > limit:
-        lawBreakers.append(rendszam + " " + str(nagyTav) + "km/h")
+        ruleBreakers.append(rendszam + " " + str(nagyTav) + "km/h")
 
-if len(lawBreakers) == 0:
+if len(ruleBreakers) == 0:
     print("Senki nem lépte át a sebességhatárt!")
 else:
-    for i in lawBreakers:
+    for i in ruleBreakers:
         print(i)
