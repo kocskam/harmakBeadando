@@ -1,44 +1,36 @@
-input = "b3[a]"
+input = "a1[b3[a]]"
+#Kivételek: ha nem kell kódolni semmit, ha hibás az input(nincs szám a zárójel előtt, nem egyenlő a zárójelek száma), ha nem add meg egyáltalán semmit
+# input = input("Kérem a kódolt szöveget!")
 
 def inputIsWrong(input, db1):
-    # print("dsd", db1)
+    # db3 = sum(c == "[" for c in input)
     db2 = 0
     for i in range(len(input)):
         if input[i] == "[":
-            # !-val nem lehet megfordítani?
-            if input[i-1].isdigit():
-                flag = True
-                #javítani ezt
-            else:
-                return True
             db2 += 1
-    #kell vagy nem
-    db3 = sum(c == "[" for c in input)
+            if isinstance(input[i-1], int):
+                return True
     numbers = sum(c.isdigit() for c in input)
     if db1 == db2 and numbers == db1:
         return False
     return True
 
 def stillNeedWorking(final):
-    # if final.find("["):
-    #     return True
-    # return False
-    for q in final:
-        if q == "[":
-            return True
-    return False
+    if final.find("[") == -1:
+        return False
+    return True
 
 def convertToMakeSense(input):
     # ha több van
-    db = 0
-    for i in input:
-        if i == "]":
-            db += 1
-
+    db = sum(i == "]" for i in input)
     if inputIsWrong(input, db):
         print("Hibás bemenet!")
         return
 
+    if db == 0:
+        return print("Mit kell itt dekódolni?")
+
+    #pozícionálás
     for j in range(len(input)):
         if input[j] == "[":
             db -= 1
@@ -46,8 +38,7 @@ def convertToMakeSense(input):
             break
 
     #ennyiszer kell ismételni
-    k = input[j - 1]
-    # print("Ennyiszer: ", k)
+    numberOfRepeats = input[j - 1]
 
     newOutput = ""
     for x in range(j-1):
@@ -62,18 +53,16 @@ def convertToMakeSense(input):
         repeatThisText += input[ind]
         numberOfSteps += 1
         ind += 1
-    # print("Ezt: ", repeatThisText)
 
-    for j in range(int(k)):
+    for j in range(int(numberOfRepeats)):
         newOutput += repeatThisText
-    # print(newOutput)
 
-    for z in range(ind+1, len(input)):
-        newOutput += input[z]
+    for j in range(ind+1, len(input)):
+        newOutput += input[j]
 
     if stillNeedWorking(newOutput):
         convertToMakeSense(newOutput)
     else:
-        print(newOutput)
+        print("A dekódolt szöveg: ",newOutput)
 
 convertToMakeSense(input)

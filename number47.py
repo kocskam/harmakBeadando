@@ -3,10 +3,9 @@
 while True:
     try:
         n = int(input("Hány sort kell beolvasnom? "))
+        if n <= 0:
+            raise ValueError
     except ValueError:
-        print("Hibás bemenet!")
-        continue
-    if n <= 0:
         print("Hibás bemenet!")
         continue
     break

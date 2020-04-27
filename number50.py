@@ -29,7 +29,7 @@ def timeIsOkay(sec, min, hour):
     except ValueError:
         print("Hibás időpont!")
 
-#program
+#main
 distance = disIsOkay()
 limit = limIsOkay()
 
@@ -40,8 +40,11 @@ while r != "end":
     r = input("Beolvasás befejezéséhez írjon 'end'-et! ")
     if r == "end":
         break
-    ora1, perc1, ms1, ora2, perc2, ms2, rendszam = r.split((" "))
-
+    try:
+        ora1, perc1, ms1, ora2, perc2, ms2, rendszam = r.split((" "))
+    except ValueError:
+        print("Hibás bemenet!")
+        continue
 
     if timeIsOkay(ms1, perc1, ora1) and timeIsOkay(ms2, perc2, ora2) :
         sec1 = toSecundum(int(ms1), int(perc1), int(ora1))
@@ -55,20 +58,18 @@ while r != "end":
         print("Hibás időpont!")
         continue
 
-
     kisTav = distance/ido
     nagyTav = kisTav * 3.6
+    nagyTav = round(nagyTav, 2)
 
-    #   itt a kerekítést javítani
-    # if isinstance(nagyTav, float):
-    #     print("dsadasdsada")
-    #     nagyTav = round(nagyTav, 2)
-    # else:
-    #     print("ds")
-    #     nagyTav = int(nagyTav)
+    f = nagyTav - int(nagyTav)
+    if f == 0:
+        nagyTav = int(nagyTav)
+    else:
+        nagyTav = round(nagyTav, 2)
 
     if nagyTav > limit:
-        lawBreakers.append(rendszam + " " + str(round(nagyTav, 2)) + "km/h")
+        lawBreakers.append(rendszam + " " + str(nagyTav) + "km/h")
 
 if len(lawBreakers) == 0:
     print("Senki nem lépte át a sebességhatárt!")
