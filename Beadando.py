@@ -1,37 +1,73 @@
 #29  Megoldást találni arra, hogy a belső []-t végezze el először.
 
-input = "2[b]5[c]"
-output = ""
+input = "a1[b3[a]]"
+#Kivételek: ha nem kell kódolni semmit, ha hibás az input(nincs szám a zárójel előtt, nem egyenlő a zárójelek száma), ha nem add meg egyáltalán semmit
+# input = input("Kérem a kódolt szöveget!")
 
-flag = 0
-for i in range(len(input)):
+def inputIsWrong(input, db1):
+    # db3 = sum(c == "[" for c in input)
+    db2 = 0
+    for i in range(len(input)):
+        if input[i] == "[":
+            db2 += 1
+            if isinstance(input[i-1], int):
+                return True
+    numbers = sum(c.isdigit() for c in input)
+    if db1 == db2 and numbers == db1:
+        return False
+    return True
 
-    if input[i].isdigit():
-        flag = 0
+def stillNeedWorking(final):
+    if final.find("[") == -1:
+        return False
+    return True
 
-        k = input[i]
+def convertToMakeSense(input):
+    # ha több van
+    db = sum(i == "]" for i in input)
+    if inputIsWrong(input, db):
+        print("Hibás bemenet!")
+        return
 
-        i += 2
-        repeatThisText = ""
-        numberOfSteps = 0
-        print(input[i])
-        while input[i] != "]":
-            repeatThisText += input[i]
-            numberOfSteps += 1
-            i += 1
+    if db == 0:
+        return print("Mit kell itt dekódolni?")
 
-        for j in range(int(k)):
-            output += repeatThisText
+    #pozícionálás
+    for j in range(len(input)):
+        if input[j] == "[":
+            db -= 1
+        if db == 0:
+            break
 
-        # zárójel indexe
-        flag = i
+    #ennyiszer kell ismételni
+    numberOfRepeats = input[j - 1]
 
+    newOutput = ""
+    for x in range(j-1):
+        newOutput += input[x]
 
+    repeatThisText = ""
+    numberOfSteps = 0
+
+    #ezt kell ismételni
+    ind = j+1
+    while input[ind] != "]":
+        repeatThisText += input[ind]
+        numberOfSteps += 1
+        ind += 1
+
+    for j in range(int(numberOfRepeats)):
+        newOutput += repeatThisText
+
+    for j in range(ind+1, len(input)):
+        newOutput += input[j]
+
+    if stillNeedWorking(newOutput):
+        convertToMakeSense(newOutput)
     else:
-        if i > flag:
-            output += input[i]
+        print("A dekódolt szöveg: ",newOutput)
 
-print(output)
+convertToMakeSense(input)
 
 #47  Hogyan tároljam ezeket?
 

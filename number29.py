@@ -1,6 +1,4 @@
-input = "a1[b3[a]]"
-#Kivételek: ha nem kell kódolni semmit, ha hibás az input(nincs szám a zárójel előtt, nem egyenlő a zárójelek száma), ha nem add meg egyáltalán semmit
-# input = input("Kérem a kódolt szöveget!")
+input = input("Kérem a kódolt szöveget!")
 
 def inputIsWrong(input, db1):
     # db3 = sum(c == "[" for c in input)
