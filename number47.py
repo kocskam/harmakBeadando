@@ -1,67 +1,30 @@
 import operator
 
+def timeIsOkay(hour, min):
+    try:
+        min = int(min)
+        hour = int(hour)
+        if hour == 24 and min != 0:
+            return False
+        return min >= 0 and min < 60 and hour >= 0 and hour < 25
+    except ValueError:
+        print("Hibás időpont!")
+
 def showConsole(list):
-
-    # for i in range(len(list)):
-    #     print(list[i])
-    #     num = 1
-    #     for j in list:
-    #         print(num, ".", j[1], "", j[2])
-    #         num += 1
-
-    # print(list[0][0])
-    # print(list[1])
-
-    # for i in range(len(list)):
-    #     print(list[i])
-    #     num = 1
-    #     for k in range(len(list)):
-    #         # print(k)
-    #         print(f'{num:>8}. {list[k][1]:>1} {list[k][2]:>1}')
-    #         num += 1
-
-    # print(len(list))
-    # print(len(list[0]))
-    #
-    # for i in range(len(list)):
-    #     print(list[i][0])
-    #     for j in range(len(list[0])):
-    #         print(list[j][1])
-    #         print(list[j][2])
-
-    # print(list[0][0])
-    # print(list[0][1])
-    # print(list[0][2])
-    # for i in range(2, len(list[0])-1):
-    #     print(i)
-    #     flag = list[i-1]
-    #     if flag == list[i]:
-    #         list[i] == ""
     num = 1
     flag = 1
     for i in range(len(list)):
 
         if flag == 1:
             print(list[i][0])
-        else:
-
-            if list[i-1][0] != list[i][0]:
-                print(list[i][0])
-                num = 1
+        elif list[i-1][0] != list[i][0]:
+            print(list[i][0])
+            num = 1
 
         for j in range(2, len(list[0])):
             flag = 0
             print(f'{num:>8}. {list[i][1]:>1} {list[i][2]:>1}')
-            # print(list[i][1])
-            # print(list[i][2])
             num += 1
-
-    # num = 1
-    #
-    # for i in list:
-    #     print(i[0])
-    #     print(num,".", i[1], "", i[2])
-    #     num += 1
 
 while True:
     try:
@@ -74,14 +37,20 @@ while True:
         print("Hibás bemenet!")
         continue
     break
+
 list = []
+
 while n != 0:
     sor = input("A(z) " + str(n) +". sor: ")
 
     try:
         darabok = sor.split(" ")
         number = darabok[0]
-        time = darabok[1] + ":" + darabok[2]
+        if timeIsOkay(darabok[1], darabok[2]):
+            time = darabok[1] + ":" + darabok[2]
+        else:
+            print("Hibás időpont!")
+            continue
         text = ""
         for i in range(3, len(darabok)):
             text += darabok[i]
@@ -93,7 +62,6 @@ while n != 0:
 
     n -= 1
 
-    # time = hour + ":" + minute
     ready = time + " " + text
     number = int(number)
     ready = str(ready)
@@ -101,6 +69,5 @@ while n != 0:
     list.append((number, time, text))
 
 list = sorted(list, key = operator.itemgetter(1, 2))
-print(list)
 
 showConsole(list)
