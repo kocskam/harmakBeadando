@@ -32,11 +32,25 @@ def showConsole(list):
     # print(list[0][0])
     # print(list[0][1])
     # print(list[0][2])
-
+    # for i in range(2, len(list[0])-1):
+    #     print(i)
+    #     flag = list[i-1]
+    #     if flag == list[i]:
+    #         list[i] == ""
+    num = 1
+    flag = 1
     for i in range(len(list)):
-        print(list[i][0])
-        num = 1
+
+        if flag == 1:
+            print(list[i][0])
+        else:
+
+            if list[i-1][0] != list[i][0]:
+                print(list[i][0])
+                num = 1
+
         for j in range(2, len(list[0])):
+            flag = 0
             print(f'{num:>8}. {list[i][1]:>1} {list[i][2]:>1}')
             # print(list[i][1])
             # print(list[i][2])
